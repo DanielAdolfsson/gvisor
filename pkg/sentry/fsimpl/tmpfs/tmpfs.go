@@ -279,6 +279,11 @@ func (fstype FilesystemType) GetFilesystem(ctx context.Context, vfsObj *vfs.Virt
 		}
 	}
 
+	if _, ok := mopts["nr_inodes"]; ok {
+		// TODO: Implement nr_inodes
+		delete(mopts, "nr_inodes")
+	}
+
 	if len(mopts) != 0 {
 		ctx.Warningf("tmpfs.FilesystemType.GetFilesystem: unknown options: %v", mopts)
 		return nil, nil, linuxerr.EINVAL
